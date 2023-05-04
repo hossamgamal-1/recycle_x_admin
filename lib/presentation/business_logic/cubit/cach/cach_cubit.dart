@@ -40,13 +40,10 @@ class CachCubit extends Cubit<CachState> {
   }
 
   Future<String> getIdToFetchUserDetails() async {
-    // TODO
-    // String? uId = getUid();
-    String uId = 'u2bSWwjziac9vzj3TlGR8R8NapD2';
-    print('uId = $uId');
+    String? uId = getUid();
+    // String uId = 'u2bSWwjziac9vzj3TlGR8R8NapD2';
 
     var snapShot = await FirebaseDatabase.instance.ref(uId).get();
     return snapShot.value.toString();
-    return '';
   }
 }
