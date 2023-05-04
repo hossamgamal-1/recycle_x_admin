@@ -13,6 +13,20 @@ class CachCubit extends Cubit<CachState> {
     await preferences.setString('uid', uid);
   }
 
+  // Future cachUser(User user) async {
+  //   await preferences.setString('user', json.encode(user.toJson()));
+  // }
+
+  // Future<User?> getCachedUser(User user) async {
+  //   String? userString = preferences.getString('user');
+  //   if (userString != null) {
+  //     var userJson = json.decode(userString);
+  //     User user = User.fromJson(userJson);
+  //     return user;
+  //   }
+  //   return null;
+  // }
+
   Future<void> clearUserUid() async {
     await preferences.remove('uid');
   }
@@ -26,11 +40,13 @@ class CachCubit extends Cubit<CachState> {
   }
 
   Future<String> getIdToFetchUserDetails() async {
-    String? uId = getUid();
-    if (uId != null) {
-      var snapShot = await FirebaseDatabase.instance.ref(uId).get();
-      return snapShot.value.toString();
-    }
+    // TODO
+    // String? uId = getUid();
+    String uId = 'u2bSWwjziac9vzj3TlGR8R8NapD2';
+    print('uId = $uId');
+
+    var snapShot = await FirebaseDatabase.instance.ref(uId).get();
+    return snapShot.value.toString();
     return '';
   }
 }

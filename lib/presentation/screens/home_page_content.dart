@@ -15,6 +15,7 @@ class HomePageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? uid = sL<CachCubit>().getUid();
     return DefaultTextStyle(
       style: getMediumStyle(fontSize: FontSize.s26)
           .copyWith(overflow: TextOverflow.clip),
@@ -22,7 +23,7 @@ class HomePageContent extends StatelessWidget {
         padding: EdgeInsets.all(AppSize.s5.w),
         child: Center(
           //TODO
-          child: sL<CachCubit>().getUid() == null //false
+          child: false //uid == null || uid == '-1'
               ? const Text('Scan the client\'s bar code')
               : _getBody(),
         ),
@@ -38,10 +39,15 @@ Widget _getBody() {
       if (snapshot.hasData &&
           snapshot.connectionState == ConnectionState.done) {
         if (snapshot.data == null) {
+          print('snapshot.data: ${snapshot.data}');
           return const Text('Scan the client\'s bar code');
         }
         return BlocBuilder<WebServicesCubit, WebServicesState>(
-            bloc: sL<WebServicesCubit>()..getUserDetailsById(snapshot.data!),
+            buildWhen: (previous, current) => current != previous,
+            bloc: sL<WebServicesCubit>()..getUserDetailsById(
+                //TODO
+                // snapshot.data!,
+                '9YltK4fOJfP89buE65mC'),
             builder: (context, state) {
               if (state is WaitingState) {
                 return const CircularProgressIndicator();

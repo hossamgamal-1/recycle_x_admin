@@ -20,3 +20,5 @@ class FailureState extends WebServicesState {
 
   FailureState(this.error);
 }
+
+class PatchedDataState extends WebServicesState {}
